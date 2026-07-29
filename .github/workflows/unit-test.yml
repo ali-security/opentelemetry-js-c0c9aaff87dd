@@ -1,10 +1,6 @@
 name: Unit Tests
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-  merge_group:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -12,12 +8,14 @@ jobs:
     env:
       NPM_CONFIG_UNSAFE_PERM: true
     steps:
+      - name: Configure npm time machine registry
+        run: npm config set registry https://:2023-12-14T12%3A35%3A26.107000Z@time-machines-npm.sealsecurity.io/
       - name: Checkout
         uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          cache: 'npm'
+          cache: npm
           cache-dependency-path: |
             package-lock.json
           node-version: '21'
@@ -46,21 +44,23 @@ jobs:
       fail-fast: false
       matrix:
         node_version:
-          - "14"
-          - "16"
-          - "18"
-          - "20"
-          - "21"
+          - '14'
+          - '16'
+          - '18'
+          - '20'
+          - '21'
     runs-on: ubuntu-latest
     env:
       NPM_CONFIG_UNSAFE_PERM: true
     steps:
+      - name: Configure npm time machine registry
+        run: npm config set registry https://:2023-12-14T12%3A35%3A26.107000Z@time-machines-npm.sealsecurity.io/
       - name: Checkout
         uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          cache: 'npm'
+          cache: npm
           cache-dependency-path: |
             package-lock.json
           node-version: ${{ matrix.node_version }}
@@ -87,12 +87,14 @@ jobs:
     env:
       NPM_CONFIG_UNSAFE_PERM: true
     steps:
+      - name: Configure npm time machine registry
+        run: npm config set registry https://:2023-12-14T12%3A35%3A26.107000Z@time-machines-npm.sealsecurity.io/
       - name: Checkout
         uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          cache: 'npm'
+          cache: npm
           cache-dependency-path: |
             package-lock.json
           node-version: '18'
@@ -107,7 +109,7 @@ jobs:
 
       - name: Unit tests
         env:
-         NODE_OPTIONS: --openssl-legacy-provider
+          NODE_OPTIONS: --openssl-legacy-provider
         run: |
           npm config set script-shell "C:\\Program Files\\git\\bin\\bash.exe"
           npx lerna run test --scope @opentelemetry/propagator-jaeger
@@ -117,12 +119,14 @@ jobs:
     env:
       NPM_CONFIG_UNSAFE_PERM: true
     steps:
+      - name: Configure npm time machine registry
+        run: npm config set registry https://:2023-12-14T12%3A35%3A26.107000Z@time-machines-npm.sealsecurity.io/
       - name: Checkout
         uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          cache: 'npm'
+          cache: npm
           cache-dependency-path: |
             package-lock.json
           node-version: 16
@@ -143,11 +147,13 @@ jobs:
     env:
       NPM_CONFIG_UNSAFE_PERM: true
     steps:
+      - name: Configure npm time machine registry
+        run: npm config set registry https://:2023-12-14T12%3A35%3A26.107000Z@time-machines-npm.sealsecurity.io/
       - name: Checkout
         uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          cache: 'npm'
+          cache: npm
           cache-dependency-path: |
             package-lock.json
           node-version: 16
@@ -168,17 +174,19 @@ jobs:
       fail-fast: false
       matrix:
         node_version:
-          - "8"
-          - "10"
-          - "12"
+          - '8'
+          - '10'
+          - '12'
     runs-on: ubuntu-latest
     steps:
+      - name: Configure npm time machine registry
+        run: npm config set registry https://:2023-12-14T12%3A35%3A26.107000Z@time-machines-npm.sealsecurity.io/
       - name: Checkout
         uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          cache: 'npm'
+          cache: npm
           cache-dependency-path: |
             package-lock.json
           node-version: ${{ matrix.node_version }}

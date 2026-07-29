@@ -1,22 +1,20 @@
 name: Lint
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-  merge_group:
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Configure npm time machine registry
+        run: npm config set registry https://:2023-12-14T12%3A35%3A26.107000Z@time-machines-npm.sealsecurity.io/
       - name: Checkout
         uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          cache: 'npm'
+          cache: npm
           cache-dependency-path: |
             package-lock.json
           node-version: '20'
@@ -28,14 +26,14 @@ jobs:
           # https://github.com/avto-dev/markdown-lint/blob/aab9be9823fcd706f6da3e6ad6c64874c23fbd4c/lint/rules/changelog.js#L51-L71
           # TODO: adhere to, or overwrite above rule and uncomment rules
           # rules: "/lint/rules/changelog.js"
-          config: "/lint/config/changelog.yml"
-          args: "./CHANGELOG.md"
+          config: /lint/config/changelog.yml
+          args: ./CHANGELOG.md
 
       - name: Lint markdown files
         uses: avto-dev/markdown-lint@v1
         with:
-          args: "./**/*.md"
-          ignore: './CHANGELOG.md ./experimental/packages/opentelemetry-exporter-metrics-otlp-grpc/protos ./experimental/packages/opentelemetry-exporter-metrics-otlp-proto/protos ./packages/exporter-trace-otlp-grpc/protos ./packages/exporter-trace-otlp-proto/protos'
+          args: ./**/*.md
+          ignore: ./CHANGELOG.md ./experimental/packages/opentelemetry-exporter-metrics-otlp-grpc/protos ./experimental/packages/opentelemetry-exporter-metrics-otlp-proto/protos ./packages/exporter-trace-otlp-grpc/protos ./packages/exporter-trace-otlp-proto/protos
 
       - name: Bootstrap
         run: npm ci

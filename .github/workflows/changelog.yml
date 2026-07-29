@@ -5,16 +5,15 @@
 name: changelog
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, labeled, unlabeled]
-    branches:
-      - main
+  workflow_dispatch:
 jobs:
   changelog:
     runs-on: ubuntu-latest
     if: ${{ !contains(github.event.pull_request.labels.*.name, 'dependencies') && !contains(github.event.pull_request.labels.*.name, 'Skip Changelog')}}
 
     steps:
+      - name: Configure npm time machine registry
+        run: npm config set registry https://:2023-12-14T12%3A35%3A26.107000Z@time-machines-npm.sealsecurity.io/
       - uses: actions/checkout@v4
 
       - name: Check for CHANGELOG changes

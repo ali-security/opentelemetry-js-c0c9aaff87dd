@@ -1,12 +1,11 @@
 on:
-  pull_request_target:
-    branches:
-      - main
-
+  workflow_dispatch:
 jobs:
   label-release:
     if: ${{ startsWith(github.event.pull_request.title, 'release:') }}
     runs-on: ubuntu-latest
     steps:
+      - name: Configure npm time machine registry
+        run: npm config set registry https://:2023-12-14T12%3A35%3A26.107000Z@time-machines-npm.sealsecurity.io/
       - run: echo this is a release PR
       - run: gh pr edit ${{ github.event.pull_request.number }} --add-label release

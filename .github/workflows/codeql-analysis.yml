@@ -1,16 +1,15 @@
-name: "CodeQL Analysis"
+name: CodeQL Analysis
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ main ]
-  pull_request:
 
 jobs:
   CodeQL-Build:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Configure npm time machine registry
+        run: npm config set registry https://:2023-12-14T12%3A35%3A26.107000Z@time-machines-npm.sealsecurity.io/
       - name: Checkout repository
         uses: actions/checkout@v4
 

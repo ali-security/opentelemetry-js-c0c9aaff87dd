@@ -1,11 +1,7 @@
 name: Ensure API Peer Dependency
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-  merge_group:
+  workflow_dispatch:
 
 jobs:
   peer-api-check:
@@ -13,6 +9,8 @@ jobs:
     container:
       image: node:20
     steps:
+      - name: Configure npm time machine registry
+        run: npm config set registry https://:2023-12-14T12%3A35%3A26.107000Z@time-machines-npm.sealsecurity.io/
       - name: Checkout
         uses: actions/checkout@v4
 
